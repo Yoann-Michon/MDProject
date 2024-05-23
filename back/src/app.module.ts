@@ -6,9 +6,39 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+
 
 @Module({
-  imports: [BlogModule, AuthModule, UsersModule],
+  imports: [BlogModule, AuthModule, UsersModule,UsersModule,
+    ConfigModule.forRoot({envFilePath:".env"}),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET, // Remplacez-le par votre clé secrète
+      signOptions: { expiresIn: '1h' },
+    }),
+    TypeOrmModule.forRoot({
+      type: "mysql",
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username:process.env.DB_USERNAME,
+      password:process.env.DB_PASSWORD,
+      database: process.env.DB_NAME_ARTICLE,
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: "mysql",
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME_USER,
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+  ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
 })

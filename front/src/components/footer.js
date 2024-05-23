@@ -61,7 +61,7 @@ const Footer = () => {
               </Typography>
             </Box>
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "row", gap: 5 , color:"#FFFFFF"}}>
+          <Box sx={{ display: "flex", flexDirection: "row", gap: { xs: 2, sm: 3, md: 5 } , color:"#FFFFFF"}}>
             <List
               sx={{ maxWidth: 360, bgcolor: "transparent", display: "flex",
               flexDirection:"column",
@@ -108,6 +108,7 @@ const Footer = () => {
           color="inherit"
           component={NavLink}
           to={link.path}
+          sx={{position:"relative"}}
         >
           <ListItemText primary={link.label} />
         </ListItemButton>
