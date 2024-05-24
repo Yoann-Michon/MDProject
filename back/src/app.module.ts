@@ -37,7 +37,7 @@ import { JwtModule } from '@nestjs/jwt';
       database: process.env.DB_NAME_USER,
       autoLoadEntities: true,
       synchronize: true,
-    }),
+    })
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],

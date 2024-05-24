@@ -7,16 +7,23 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (username === 'admin' && password === 'admin') {
-      // Connexion réussie
-      navigate('/dashboard'); // Rediriger vers le tableau de bord
-    } else {
-      // Gestion de l'échec de connexion
-      console.log('Login incorrect');
-    }
-  };
+    const response = await fetch('http://localhost:4000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password })});
+
+      if (response.ok) {
+        // Connexion réussie
+        navigate('/blog'); // Rediriger vers le blog
+      } else {
+        // Gestion de l'échec de connexion
+        console.log('identifiants incorrects');
+      }
+    };
 
   return (
     <Container maxWidth="sm" sx={{ my: 9 }}>

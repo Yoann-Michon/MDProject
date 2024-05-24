@@ -29,7 +29,6 @@ const DonationCards = () => {
           Nous sommes une ONG caritative à but non lucratif.
         </Typography>
       </Box>
-      <Container>
         <Grid container spacing={4} justifyContent="center">
           {donationData.map((donation, index) => (
             <Grid item key={index} xs={12} sm={6} md={4}>
@@ -49,7 +48,6 @@ const DonationCards = () => {
             </Grid>
           ))}
         </Grid>
-      </Container>
     </Box>
   );
 };

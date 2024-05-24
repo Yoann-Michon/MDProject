@@ -2,14 +2,16 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
+import { Blog } from './entities/blog.entity';
 
 @Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
   @Post()
-  async create(@Body() createBlogDto: CreateBlogDto) {
-    return await this.blogService.create(createBlogDto);
+  async create(@Body('url') url:string): Promise<Blog>  {
+    console.log(url)
+    return await this.blogService.create(url);
   }
 
   @Get()

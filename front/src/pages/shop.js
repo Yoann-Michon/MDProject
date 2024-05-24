@@ -45,7 +45,7 @@ const Shop = () => {
                                 Prix: {product.price}
                             </Typography>
                         </CardContent>
-                        {role === 'Admin' && (
+                        {(
                         <CardActions>
                             <Button size="small" color="error" onClick={() => handleDeleteProduct(index)}>Supprimer</Button>
                         </CardActions>
@@ -54,7 +54,7 @@ const Shop = () => {
                 ))}
             </Box>
             {/*role === 'Admin' && */}
-            {(
+            { (
                 <>
                     <Button onClick={() => setOpenModal(true)}>Créer</Button>
                     <Modal open={openModal} onClose={() => setOpenModal(false)}>

@@ -13,25 +13,33 @@ import puppeteer from 'puppeteer';
 @Injectable()
 export class BlogService {
   constructor(
-    @InjectRepository(Blog) private articleRepository: Repository<Blog>,
+    @InjectRepository(Blog) private blogRepository: Repository<Blog>,
   ) {}
 
-  async create(createBlogDto: CreateBlogDto): Promise<void> {
+  async create(url:string): Promise<Blog> {
     try {
-      const articleUrl = createBlogDto.link;
+      const articleUrl = url;
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(articleUrl);
+      //await page.screenshot({path: "exemple.png", fullPage: true})
+      const articleTitle = await page.$$eval('h1', (elements) => 
+        elements.slice(0, 2).map(element => element.textContent.trim())
+      );
 
-      const articleTitle = await page.$eval('h1', (element) => element.textContent.trim());
+      const articleContent = await page.$$eval('p', (elements) => 
+        elements.slice(0, 2).map(element => element.textContent.trim())
+      );
       //const articleImage = await page.$eval('img', (element) => element.getAttribute('src'));
 
       await browser.close();
 
       const article = new Blog();
-      article.title = articleTitle;
+      article.title=articleTitle[0]
+      article.link=articleUrl
+      article.content=articleContent[0]
       //article.image = articleImage;
-      await this.articleRepository.save(article);
+      return await this.blogRepository.save(article);
     } catch (error) {
       throw new Error('Failed to create article from URL');
     }
@@ -39,7 +47,7 @@ export class BlogService {
 
   findAll() {
     try {
-      return this.articleRepository.find();
+      return this.blogRepository.find();
     } catch (error) {
       throw new ConflictException();
     }
@@ -47,20 +55,20 @@ export class BlogService {
 
   findOne(id: number) {
     try {
-      return this.articleRepository.findOneBy({ id });
+      return this.blogRepository.findOneBy({ id });
     } catch (error) {
       throw new ConflictException();
     }
   }
 
   async update(id: number, updateBlogDto: UpdateBlogDto) {
-    let done = await this.articleRepository.update(id, updateBlogDto);
+    let done = await this.blogRepository.update(id, updateBlogDto);
     if (done.affected != 1) throw new NotFoundException(id);
     return this.findOne(id);
   }
 
   async remove(id: number) {
-    let done: DeleteResult = await this.articleRepository.delete(id);
+    let done: DeleteResult = await this.blogRepository.delete(id);
     if (done.affected != 1) throw new NotFoundException(id);
   }
 }
