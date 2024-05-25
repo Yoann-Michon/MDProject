@@ -49,7 +49,7 @@ const Home = () => {
               mb: 2,
               color: "#FFFFFF",
               textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
-              fontSize: { xs: "3rem", md: "2rem" },
+              fontSize: { xs: "2rem", md: "5rem" },
             }}
           >
             Un jour de paix
@@ -74,7 +74,7 @@ const Home = () => {
       <Divider sx={{ my: 5 }}>
         <Chip
           label="Situation"
-          sx={{ bgcolor: "#4CAF50", color: "#FFFFFF", fontSize: "15px" }}
+          sx={{ bgcolor: "#4CAF50", color: "#FFFFFF", fontSize: "20px" }}
         />
       </Divider>
       <Container
@@ -201,7 +201,7 @@ const Home = () => {
       <Divider sx={{ my: 3 }}>
         <Chip
           label="Notre mission"
-          sx={{ bgcolor: "#4CAF50", color: "#FFFFFF", fontSize: "15px" }}
+          sx={{ bgcolor: "#4CAF50", color: "#FFFFFF", fontSize: "20px" }}
         />
       </Divider>
       <Box
@@ -239,7 +239,7 @@ const Home = () => {
       <Divider sx={{ my: 3 }}>
         <Chip
           label="Notre équipe"
-          sx={{ bgcolor: "#4CAF50", color: "#FFFFFF", fontSize: "15px" }}
+          sx={{ bgcolor: "#4CAF50", color: "#FFFFFF", fontSize: "20px" }}
         />
       </Divider>
 
@@ -290,15 +290,22 @@ const Home = () => {
           </Card>
         ))}
       </Box>
-      <Container component="div" id="network" sx={{display: 'flex', justifyContent: 'center',flexDirection:"column",width:"1000px",my:5}}>
+      <Container component="div" id="network" sx={{display: 'flex', justifyContent: 'center',flexDirection:"column",width:"100%",my:5}}>
         <Typography variant="h4" component="h4" sx={{ display: 'flex', justifyContent: 'center',maxHeight:{md:"600px" },mb:5}}>
           Envie de rejoindre l'équipe ?
         </Typography>
-        <Box sx={{display: 'flex', justifyContent: 'space-around',minWidth:400, width:"100%", alignItems:"center"}}>
-          <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={400} />
-          <blockquote className="tiktok-embed" cite="https://www.tiktok.com/@epicgardening/video/7055411162212633903" data-video-id="7055411162212633903" id="v88922974113346340" style={{height:"625px",width: "323px",margin:"0"}}>
-              <iframe name="__tt_embed__v88922974113346340" sandbox="allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation allow-same-origin" src="https://www.tiktok.com/embed/v2/7055411162212633903" style={{ "visibility": "unset"}}></iframe>
-          </blockquote>
+        <Box sx={{display: 'flex', justifyContent: 'space-around',minWidth:400, width:"100%", alignItems:"center",flexDirection:{xs: "column", md: "row"}}}>
+          <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" style={{maxWidth:"400px",width:"100%"}} />
+          <blockquote className="tiktok-embed" cite="https://www.tiktok.com/@epicgardening/video/7055411162212633903" data-video-id="7055411162212633903" id="v88922974113346340" style={{ height: "625px", width: "323px", margin: "0" }}>
+  <iframe
+    title="TikTok Video"
+    name="__tt_embed__v88922974113346340"
+    sandbox="allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation allow-same-origin"
+    src="https://www.tiktok.com/embed/v2/7055411162212633903"
+    style={{ "visibility": "unset" }}
+  ></iframe>
+</blockquote>
+
         </Box>
       </Container>
     </div>

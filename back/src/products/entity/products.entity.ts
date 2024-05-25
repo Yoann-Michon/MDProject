@@ -13,4 +13,7 @@ export class Product {
 
   @Column('float')
   price: number;
+
+  @Column()
+  locationImg: string;
 }

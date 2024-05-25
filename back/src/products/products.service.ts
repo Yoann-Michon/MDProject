@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './entity/products.entity';
-import { CreateProductDto } from './dto/create-products.dto';
 import { UpdateProductDto } from './dto/update-products.dto';
 
 @Injectable()
@@ -12,17 +11,37 @@ export class ProductsService {
     private readonly productRepository: Repository<Product>,
   ) {}
 
-  async create(createProductDto: CreateProductDto): Promise<Product> {
-    const product = this.productRepository.create(createProductDto);
-    return await this.productRepository.save(product);
+  async create(product: Product): Promise<Product> {
+    try {
+      //const response = await fetch(`https://api.imgbb.com/1/upload?expiration=0&key=${process.env.KEY_IMGBB}`,{
+      //  method: "POST",
+      //  body: product.locationImg,
+      //});
+      //const data=await response.json();
+      //console.log(data)
+      //product.locationImg=data.data.image.url;
+      return await this.productRepository.save(product);
+      
+    } catch (error) {
+      throw new ConflictException();
+    }
   }
 
-  async findAll(): Promise<Product[]> {
-    return await this.productRepository.find();
+  async findAll() {
+    try {
+      return await this.productRepository.find();
+      
+    } catch (error) {
+      throw new ConflictException();
+    }
   }
 
-  async findOne(id: number): Promise<Product> {
-    return await this.productRepository.findOneBy({ id });
+  async findOne(id: number) {
+    try {
+      return await this.productRepository.findOneBy({ id });
+    } catch (error) {
+      throw new ConflictException();
+    }
   }
 
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {

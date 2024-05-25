@@ -17,8 +17,8 @@ export class BlogService {
   ) {}
 
   async create(url:string): Promise<Blog> {
+    const articleUrl = url;
     try {
-      const articleUrl = url;
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(articleUrl);
@@ -39,6 +39,7 @@ export class BlogService {
       article.link=articleUrl
       article.content=articleContent[0]
       //article.image = articleImage;
+      console.log(article)
       return await this.blogRepository.save(article);
     } catch (error) {
       throw new Error('Failed to create article from URL');

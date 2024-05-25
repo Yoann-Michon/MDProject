@@ -7,10 +7,10 @@ import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports:[ TypeOrmModule.forFeature([Product])],
+  controllers: [ProductsController],
   providers: [ProductsService,
     //garantit que les DTOs sont utilisés efficacement et que les données transférées sont valides avant d'être traitées par vos services ou contrôleurs
   {provide: APP_PIPE, useClass: ValidationPipe}],
-  controllers: [ProductsController],
   exports:[ProductsService]
 })
 export class ProductsModule {}
